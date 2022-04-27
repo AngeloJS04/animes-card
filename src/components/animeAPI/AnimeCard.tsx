@@ -2,8 +2,6 @@ import { SetStateAction, useState } from "react"
 import { ModalDataI } from "../../interface/Modal.interface"
 import Modal from "./Modal"
 
-
-
 const AnimeCard = ({ animes }: any) => {
 
     const [active, setActive] = useState(false)
@@ -37,26 +35,40 @@ const AnimeCard = ({ animes }: any) => {
                         </Modal>
                     }
                     {
-                        animes.map((anime: any, i: number) => (
+                        animes.map((anime: any, i: number) => {
 
-                            <div className='col-4' key={`anime-${anime.title}-${i}`}>
-                                <div className='card' style={{ width: '17rem' }}>
-                                    <img src={`${anime.images.jpg.large_image_url}`} alt="" />
-                                    <div className="card-body">
-                                        <div className="card-title text-center" style={{ fontSize: '24px' }}>
-                                            {anime.title}
-                                        </div>
-                                        <p className="card-text text-center">Rate: {anime.score}</p>
-                                        <div className='d-flex justify-content-center'>
-                                            <button
-                                                className=" btn btn-primary btn-sm text-light"
-                                                onClick={() => { infoModal(anime.mal_id, anime.title, anime.episodes, anime.duration) }}
-                                            >More info</button>
+                            const score = anime.score + 90
+                            return (
+
+                                <div className='col-4' key={`anime-${anime.title}-${i}`}>
+                                    <div className='card' style={{ width: '17rem' }}>
+                                        <img src={`${anime.images.jpg.large_image_url}`} alt="" />
+                                        <div className="card-body">
+                                            <div className="card-title text-center" style={{ fontSize: '24px' }}>
+                                                {anime.title}
+                                            </div>
+                                            <hr />
+                                            {/* <p className="card-text text-center">Rate: </p> */}
+                                            <div className="progress mb-2">
+                                                <div className="progress-bar bg-success" role="progressbar" style={{ width: `${score}%` }} aria-valuenow={10} aria-valuemin={10} aria-valuemax={10}>{anime.score}%</div>
+                                            </div>
+                                            <div className='d-flex justify-content-center'>
+                                                <button
+                                                    className=" btn btn-primary btn-sm text-light"
+                                                    onClick={() => {
+                                                        infoModal(
+                                                            anime.mal_id,
+                                                            anime.title,
+                                                            anime.episodes,
+                                                            anime.duration)
+                                                    }}
+                                                >More info</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
+                            )
+                        })
                     }
                 </div>
             </div>
