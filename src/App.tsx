@@ -11,13 +11,14 @@ function App() {
     await fetch('https://api.jikan.moe/v4/anime')
       .then(response => { return response.json() })
       .then(data => setAnimes(data.data));
+
     setLoading(false)
   }
 
   useEffect(() => {
     getAnime()
   }, [])
-  
+
   console.log(animes)
   return (
     <>
