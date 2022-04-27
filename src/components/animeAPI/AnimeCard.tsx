@@ -4,10 +4,19 @@ import Modal from "./Modal"
 const AnimeCard = ({ animes }: any) => {
 
     const [active, setActive] = useState(false)
+    const [id, setId] = useState(0)
+    const [title, setTitle] = useState('')
+
+    const infoModal = (id: number, title: string) => {
+        setActive(!active)
+        setId(id)
+
+        setTitle(title)
+    }
 
     return (
         <>
-        <h1>TEST</h1>
+
             <div className='container mb-4 '>
                 <h2 className='display-4 text-center text-light'> Select your favorite anime</h2>
                 <div className='row'>
@@ -16,12 +25,11 @@ const AnimeCard = ({ animes }: any) => {
                         <Modal
                             active={active}
                             realWidth='500px'
-                            header={<><h3>Selected</h3></>}
+                            header={<p>{title}</p>}
                             toggle={() => setActive(false)}
                         >
 
-
-                            <p>Anime selected</p>
+                            <p>{id}</p>
 
                         </Modal>
                     }
@@ -39,7 +47,7 @@ const AnimeCard = ({ animes }: any) => {
                                         <div className='d-flex justify-content-center'>
                                             <button
                                                 className=" btn btn-primary btn-sm text-light"
-                                                onClick={() => { setActive(!active) }}
+                                                onClick={() => { infoModal(anime.mal_id, anime.title) }}
                                             >More info</button>
                                         </div>
                                     </div>
