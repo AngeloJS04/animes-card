@@ -1,17 +1,20 @@
-import { useState } from "react"
+import { SetStateAction, useState } from "react"
+import { ModalDataI } from "../../interface/Modal.interface"
 import Modal from "./Modal"
+
+
 
 const AnimeCard = ({ animes }: any) => {
 
     const [active, setActive] = useState(false)
     const [id, setId] = useState(0)
-    const [title, setTitle] = useState('')
+    const [dataModal, setDataModal] = useState({ title: '', episodes: '', duration: '' })
 
-    const infoModal = (id: number, title: string) => {
+    const infoModal = (id: SetStateAction<number>, title: string, episodes: string, duration: string) => {
         setActive(!active)
         setId(id)
 
-        setTitle(title)
+        setDataModal({ title, episodes, duration })
     }
 
     return (
@@ -25,11 +28,11 @@ const AnimeCard = ({ animes }: any) => {
                         <Modal
                             active={active}
                             realWidth='500px'
-                            header={<p>{title}</p>}
+                            header={<p>{dataModal.title}</p>}
                             toggle={() => setActive(false)}
                         >
 
-                            <p>{id}</p>
+                            <p>Duracion: {dataModal.duration} - Episodios: {dataModal.episodes}</p>
 
                         </Modal>
                     }
@@ -47,7 +50,7 @@ const AnimeCard = ({ animes }: any) => {
                                         <div className='d-flex justify-content-center'>
                                             <button
                                                 className=" btn btn-primary btn-sm text-light"
-                                                onClick={() => { infoModal(anime.mal_id, anime.title) }}
+                                                onClick={() => { infoModal(anime.mal_id, anime.title, anime.episodes, anime.duration) }}
                                             >More info</button>
                                         </div>
                                     </div>
