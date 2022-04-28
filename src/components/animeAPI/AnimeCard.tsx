@@ -6,13 +6,13 @@ const AnimeCard = ({ animes }: any) => {
 
     const [active, setActive] = useState(false)
     const [id, setId] = useState(0)
-    const [dataModal, setDataModal] = useState({ title: '', episodes: '', duration: '' })
+    const [dataModal, setDataModal] = useState({ title: '', episodes: '', duration: '', score: 0 })
 
-    const infoModal = (id: SetStateAction<number>, title: string, episodes: string, duration: string) => {
+    const infoModal = (id: SetStateAction<number>, title: string, episodes: string, duration: string, score: number) => {
         setActive(!active)
         setId(id)
 
-        setDataModal({ title, episodes, duration })
+        setDataModal({ title, episodes, duration, score })
     }
 
     return (
@@ -23,46 +23,58 @@ const AnimeCard = ({ animes }: any) => {
                 <div className='row'>
 
                     {active &&
+
                         <Modal
                             active={active}
                             realWidth='500px'
                             header={<p>{dataModal.title}</p>}
                             toggle={() => setActive(false)}
                         >
+                            <div className="d-flex justify-content-around m-3">
+                                <p>Duracion: {dataModal.duration} - </p>
+                                <p className="bg-primary text-white p-1 rounded">Episodios: {dataModal.episodes}</p>
+                            </div>
+                            <div className="d-flex justify-content-center ">
+                                <button className="btn btn-success btn-sm text-center m-2">Ver trailer</button>
 
-                            <p>Duracion: {dataModal.duration} - Episodios: {dataModal.episodes}</p>
+                            </div>
+
+                            <div className="progress">
+                                <div className="progress-bar" role="progressbar" aria-valuenow={80 + dataModal.score}
+                                    aria-valuemin={0} aria-valuemax={10} style={{
+                                        width: `${80 + dataModal.score}%`,
+                                    }}>
+                                    <span className="sr-only">Rate: {dataModal.score} </span>
+                                </div>
+                            </div>
 
                         </Modal>
                     }
                     {
                         animes.map((anime: any, i: number) => {
+                            const score = anime.score + 80
 
-                            const score = anime.score + 90
                             return (
 
-                                <div className='col-4' key={`anime-${anime.title}-${i}`}>
-                                    <div className='card' style={{ width: '17rem' }}>
-                                        <img src={`${anime.images.jpg.large_image_url}`} alt="" />
-                                        <div className="card-body">
-                                            <div className="card-title text-center" style={{ fontSize: '24px' }}>
-                                                {anime.title}
-                                            </div>
-                                            <hr />
-                                            {/* <p className="card-text text-center">Rate: </p> */}
-                                            <div className="progress mb-2">
-                                                <div className="progress-bar bg-success" role="progressbar" style={{ width: `${score}%` }} aria-valuenow={10} aria-valuemin={10} aria-valuemax={10}>{anime.score}%</div>
-                                            </div>
+                                <div className='col-3 m-2' key={`anime-${anime.title}-${i}`}>
+                                    <div className='card rounded' style={{ width: '17rem' }}>
+                                        <img src={`${anime.images.jpg.large_image_url}`} style={{ maxWidth: '17rem' }} className="img-responsive" alt="" />
+                                        <div className="" >
+
                                             <div className='d-flex justify-content-center'>
                                                 <button
-                                                    className=" btn btn-primary btn-sm text-light"
+                                                    className=" btn btn-secondary btn-sm text-light "
+                                                    style={{ position: 'absolute', top: '88%', width: '50%' }}
                                                     onClick={() => {
                                                         infoModal(
                                                             anime.mal_id,
                                                             anime.title,
                                                             anime.episodes,
-                                                            anime.duration)
+                                                            anime.duration,
+                                                            anime.score)
                                                     }}
-                                                >More info</button>
+
+                                                ><i className="fas fa-info-circle"></i>More info</button>
                                             </div>
                                         </div>
                                     </div>
