@@ -1,19 +1,22 @@
 import { SetStateAction, useState } from "react"
 import { ModalDataI } from "../../interface/Modal.interface"
 import Modal from "./Modal"
+import MoreInfoSVG from "./svg/MoreInfoSVG"
+import YoutubeSVG from "./svg/YoutubeSVG"
 
 const AnimeCard = ({ animes }: any) => {
 
     const [active, setActive] = useState(false)
     const [id, setId] = useState(0)
-    const [dataModal, setDataModal] = useState({ title: '', episodes: '', duration: '', score: 0 })
+    const [dataModal, setDataModal] = useState({ title: '', episodes: '', score: 0, synopsis: '', year: '', trailer: '' })
 
-    const infoModal = (id: SetStateAction<number>, title: string, episodes: string, duration: string, score: number) => {
+    const infoModal = (title: string, episodes: string, score: number, synopsis: string, year: string, trailer: string) => {
         setActive(!active)
         setId(id)
 
-        setDataModal({ title, episodes, duration, score })
+        setDataModal({ title, episodes, score, synopsis, year, trailer })
     }
+
     return (
         <>
             <div className='container mb-4 '>
@@ -25,20 +28,22 @@ const AnimeCard = ({ animes }: any) => {
                         <Modal
                             active={active}
                             realWidth='500px'
-                            header={<p>{dataModal.title}</p>}
+                            header={<p>{dataModal.title} - {dataModal.year && dataModal.year} </p>}
                             toggle={() => setActive(false)}
                         >
-                            <div className="d-flex justify-content-around m-3">
-                                <p>Duracion: {dataModal.duration} - </p>
-                                <p className="bg-primary text-white p-1 rounded">Episodios: {dataModal.episodes}</p>
+                            <div className=" m-3">
+                                <p style={{ fontSize: '13px' }}><b>Synopsis: </b>{dataModal.synopsis} </p>
+
                             </div>
-                            <div className="d-flex justify-content-center ">
-                                <button className="btn btn-success btn-sm text-center m-2">Ver trailer</button>
+                            <div className="d-flex justify-content-between">
+                                <a href={`${dataModal.trailer}`} target="_blank" style={{ fontSize: '10px' }}
+                                    className="btn btn-danger btn-sm text-center m-2"><YoutubeSVG /> <span className="mt-1">Ver trailer</span></a>
+                                <p style={{ fontSize: '10px' }} className="bg-primary text-white p-1 rounded mt-1">Episodios: {dataModal.episodes}</p>
 
                             </div>
 
                             <div className="progress">
-                                <div className="progress-bar" role="progressbar" aria-valuenow={dataModal.score}
+                                <div className="progress-bar bg-danger" role="progressbar" aria-valuenow={dataModal.score}
                                     aria-valuemin={0} aria-valuemax={80} style={{
                                         width: `${(10 * dataModal.score / 100) * 100}%`,
                                     }}>
@@ -60,18 +65,20 @@ const AnimeCard = ({ animes }: any) => {
 
                                             <div className='d-flex justify-content-center'>
                                                 <button
-                                                    className=" btn btn-secondary btn-sm text-light "
+                                                    className=" btn btn-danger btn-sm text-light "
                                                     style={{ position: 'absolute', top: '88%', width: '50%' }}
                                                     onClick={() => {
                                                         infoModal(
-                                                            anime.mal_id,
+
                                                             anime.title,
                                                             anime.episodes,
-                                                            anime.duration,
-                                                            anime.score)
+                                                            anime.score,
+                                                            anime.synopsis,
+                                                            anime.year,
+                                                            anime.trailer.embed_url)
                                                     }}
 
-                                                ><i className="fas fa-info-circle"></i>More info</button>
+                                                ><MoreInfoSVG /> More info</button>
                                             </div>
                                         </div>
                                     </div>
