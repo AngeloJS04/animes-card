@@ -1,5 +1,6 @@
 import { SetStateAction, useState } from "react"
 import { ModalDataI } from "../../interface/Modal.interface"
+import Nav from "../Navbar/Nav"
 import Modal from "./Modal"
 import MoreInfoSVG from "./svg/MoreInfoSVG"
 import YoutubeSVG from "./svg/YoutubeSVG"
@@ -19,8 +20,9 @@ const AnimeCard = ({ animes }: any) => {
 
     return (
         <>
+            <Nav />
             <div className='container mb-4 '>
-                <h2 className='display-4 text-center text-light'> Select your favorite anime</h2>
+
                 <div className='row d-flex justify-content-center'>
 
                     {active &&
@@ -58,7 +60,7 @@ const AnimeCard = ({ animes }: any) => {
 
                             return (
 
-                                <div className='col-3 m-2' key={`anime-${anime.title}-${id}`}>
+                                <div className='col-lg-3 col-9 m-2' key={`anime-${anime.title}-${id}`}>
                                     <div className='card rounded' style={{ width: '17rem' }}>
                                         <img src={`${anime.images.jpg.large_image_url}`} style={{ maxWidth: '17rem' }} className="img-responsive" alt="" />
                                         <div className="" >

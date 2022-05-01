@@ -22,7 +22,7 @@ function App() {
   console.log(animes)
   return (
     <>
-      <div className='bg-dark 100vh'>
+      <div className=' 100vh'>
 
         {loading ? <Loading /> : <AnimeCard animes={animes} />}
       </div>
