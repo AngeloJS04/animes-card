@@ -14,13 +14,11 @@ const AnimeCard = ({ animes }: any) => {
 
         setDataModal({ title, episodes, duration, score })
     }
-
     return (
         <>
-
             <div className='container mb-4 '>
                 <h2 className='display-4 text-center text-light'> Select your favorite anime</h2>
-                <div className='row'>
+                <div className='row d-flex justify-content-center'>
 
                     {active &&
 
@@ -40,9 +38,9 @@ const AnimeCard = ({ animes }: any) => {
                             </div>
 
                             <div className="progress">
-                                <div className="progress-bar" role="progressbar" aria-valuenow={80 + dataModal.score}
-                                    aria-valuemin={0} aria-valuemax={10} style={{
-                                        width: `${80 + dataModal.score}%`,
+                                <div className="progress-bar" role="progressbar" aria-valuenow={dataModal.score}
+                                    aria-valuemin={0} aria-valuemax={80} style={{
+                                        width: `${(10 * dataModal.score / 100) * 100}%`,
                                     }}>
                                     <span className="sr-only">Rate: {dataModal.score} </span>
                                 </div>
@@ -52,11 +50,10 @@ const AnimeCard = ({ animes }: any) => {
                     }
                     {
                         animes.map((anime: any, i: number) => {
-                            const score = anime.score + 80
 
                             return (
 
-                                <div className='col-3 m-2' key={`anime-${anime.title}-${i}`}>
+                                <div className='col-3 m-2' key={`anime-${anime.title}-${id}`}>
                                     <div className='card rounded' style={{ width: '17rem' }}>
                                         <img src={`${anime.images.jpg.large_image_url}`} style={{ maxWidth: '17rem' }} className="img-responsive" alt="" />
                                         <div className="" >
