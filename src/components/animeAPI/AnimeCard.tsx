@@ -2,6 +2,7 @@ import { SetStateAction, useState } from "react"
 import { ModalDataI } from "../../interface/Modal.interface"
 import Nav from "../Navbar/Nav"
 import Modal from "./Modal"
+import Cap from "./svg/Cap"
 import MoreInfoSVG from "./svg/MoreInfoSVG"
 import YoutubeSVG from "./svg/YoutubeSVG"
 
@@ -40,7 +41,7 @@ const AnimeCard = ({ animes }: any) => {
                             <div className="d-flex justify-content-between">
                                 <a href={`${dataModal.trailer}`} target="_blank" style={{ fontSize: '10px' }}
                                     className="btn btn-danger btn-sm text-center m-2"><YoutubeSVG /> <span className="mt-1">Ver trailer</span></a>
-                                <p style={{ fontSize: '10px' }} className="bg-primary text-white p-1 rounded mt-1">Episodios: {dataModal.episodes}</p>
+                                <p style={{ fontSize: '10px' }} className="bg-primary text-white p-1 rounded mt-1"><Cap /> Episodios: {dataModal.episodes}</p>
 
                             </div>
 
